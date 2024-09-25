@@ -1,6 +1,17 @@
 import React from "react";
+import axiosInstance from "../../Helper/axiosInstance";
 
 const Home = () => {
+
+const handle = async () => {
+  try {
+    const response = await axiosInstance.get('/')
+    console.log(response); // Print the response data in the console for testing purposes.
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
   // Sample video data
   const videos = [
     {
@@ -41,7 +52,9 @@ const Home = () => {
             placeholder="Search"
             className="flex-grow mx-4 px-4 py-2 border border-gray-300 rounded-lg"
           />
-          <button className="bg-red-600 text-white px-4 py-2 rounded-lg">
+          <button
+          onClick = {handle}
+           className="bg-red-600 text-white px-4 py-2 rounded-lg">
             Search
           </button>
         </div>
