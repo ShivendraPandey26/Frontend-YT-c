@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { signUpCreating } from "../../Redux/Slices/AuthSlice";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -10,27 +14,63 @@ const Signup = () => {
     coverImage: null,
   });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Handle change for inputs
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "avatar" || name === "coverImage") {
-      setFormData({ ...formData, [name]: files[0] });
+      setFormData((prevState) => ({ ...prevState, [name]: files[0] }));
     } else {
-      setFormData({ ...formData, [name]: value });
+      setFormData((prevState) => ({ ...prevState, [name]: value }));
     }
   };
 
-  const handleSubmit = (e) => {
+  // Form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    // Add your signup logic here
+
+    const { fullName, username, email, password, avatar, coverImage } = formData;
+
+    if (!fullName || !username || !email || !password || !avatar) {
+      toast.error("Please fill all required fields");
+      return;
+    }
+
+    const response = await dispatch(signUpCreating(formData));
+
+    if (response.payload?.error) {
+      toast.error(response.payload.error || "Signup failed");
+    } else {
+      toast.success("Signup successful!");
+      navigate("/login");
+    }
   };
 
-  const previewAvatar = formData.avatar
-    ? URL.createObjectURL(formData.avatar)
-    : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
-  const previewCoverImage = formData.coverImage
-    ? URL.createObjectURL(formData.coverImage)
-    : "https://via.placeholder.com/800x200.png?text=Cover+Image";
+  // Generate object URLs for images
+  const [previewAvatar, setPreviewAvatar] = useState(null);
+  const [previewCoverImage, setPreviewCoverImage] = useState(null);
+
+  useEffect(() => {
+    if (formData.avatar) {
+      const objectUrl = URL.createObjectURL(formData.avatar);
+      setPreviewAvatar(objectUrl);
+      return () => URL.revokeObjectURL(objectUrl); // Clean up
+    } else {
+      setPreviewAvatar("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+    }
+  }, [formData.avatar]);
+
+  useEffect(() => {
+    if (formData.coverImage) {
+      const objectUrl = URL.createObjectURL(formData.coverImage);
+      setPreviewCoverImage(objectUrl);
+      return () => URL.revokeObjectURL(objectUrl); // Clean up
+    } else {
+      setPreviewCoverImage("https://via.placeholder.com/800x200.png?text=Cover+Image");
+    }
+  }, [formData.coverImage]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 py-10">
@@ -92,17 +132,12 @@ const Signup = () => {
 
         {/* Profile Information Form */}
         <div className="mt-16 px-6">
-          <h2 className="text-2xl font-bold text-center mb-6">
-            Create Profile
-          </h2>
+          <h2 className="text-2xl font-bold text-center mb-6">Create Profile</h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Full Name */}
             <div>
-              <label
-                className="block text-gray-700 font-semibold mb-2"
-                htmlFor="fullName"
-              >
+              <label className="block text-gray-700 font-semibold mb-2" htmlFor="fullName">
                 Full Name
               </label>
               <input
@@ -119,10 +154,7 @@ const Signup = () => {
 
             {/* Username */}
             <div>
-              <label
-                className="block text-gray-700 font-semibold mb-2"
-                htmlFor="username"
-              >
+              <label className="block text-gray-700 font-semibold mb-2" htmlFor="username">
                 Username
               </label>
               <input
@@ -139,10 +171,7 @@ const Signup = () => {
 
             {/* Email */}
             <div>
-              <label
-                className="block text-gray-700 font-semibold mb-2"
-                htmlFor="email"
-              >
+              <label className="block text-gray-700 font-semibold mb-2" htmlFor="email">
                 Email
               </label>
               <input
@@ -159,10 +188,7 @@ const Signup = () => {
 
             {/* Password */}
             <div>
-              <label
-                className="block text-gray-700 font-semibold mb-2"
-                htmlFor="password"
-              >
+              <label className="block text-gray-700 font-semibold mb-2" htmlFor="password">
                 Password
               </label>
               <input
