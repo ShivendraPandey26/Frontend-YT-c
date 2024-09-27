@@ -23,10 +23,9 @@ const Login = () => {
 
     const { payload } = await dispatch(login(formData));
 
-    console.log({payload: payload});
-    
+    // console.log({payload: payload});
 
-    if (payload === 'Invalid Password' || payload === 'Invalid credentials' ) {
+    if (payload === "Invalid Password" || payload === "Invalid credentials") {
       return toast.error(payload.error || "Login failed");
     }
 
@@ -41,7 +40,10 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           {["username", "password"].map((field) => (
             <div key={field} className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={field}>
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor={field}
+              >
                 {field.charAt(0).toUpperCase() + field.slice(1)}
               </label>
               <input
