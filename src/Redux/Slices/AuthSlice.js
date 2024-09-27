@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-hot-toast";
 import axiosInstance from "../../Helper/axiosInstance";
+// import Cookies from "js-cookie";
 
 // Initial State
 const initialState = {
@@ -37,6 +38,14 @@ export const login = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post("/users/login", credentials);
+
+      // const accessToken = response.data.data.accessToken;
+      // const refreshToken = response.data.data.refreshToken;
+
+      // // Set the cookie with token or any other data you want
+      // Cookies.set("accessToken", accessToken, { expires: 7 }); // Expires in 7 days
+      // Cookies.set("refreshToken", refreshToken, { expires: 30 }); // Expires in 30 days
+
       return response.data;
     } catch (error) {
       const message = error?.response?.data?.message || "Something went wrong";
