@@ -6,8 +6,9 @@ import "./App.css";
 import Home from "./components/Home/Home";
 import Signup from "./components/Auth/Signup";
 import Login from "./components/Auth/Login";
-import Watch from "./components/video/Watch";
+import Watch from "./components/Video/Watch";
 import PublishVideo from "./components/Video/PublishVideo";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       <Route path="/watch/:videoId" element={<Watch />} />
-      <Route path="/publish-video" element={<PublishVideo />} />
+      <Route path="/publishvideo" element={<PublishVideo />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 }
