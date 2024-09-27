@@ -2,6 +2,7 @@ import React from "react";
 import { FiMenu } from "react-icons/fi";
 import { RiVideoAddLine } from "react-icons/ri";
 import SearchBar from "./SearchBar";
+import { Link } from "react-router-dom";
 
 function Navbar({ toggleSidebar }) {
   return (
@@ -15,7 +16,9 @@ function Navbar({ toggleSidebar }) {
           >
             <FiMenu size={25} />
           </button>
-          <h1 className="text-2xl font-bold text-red-600">YouTube</h1>
+          <a href="/">
+            <h1 className="text-2xl font-bold text-red-600">YouTube</h1>
+          </a>
         </div>
 
         {/* Add search input */}
@@ -25,9 +28,9 @@ function Navbar({ toggleSidebar }) {
 
         <div className="w-32 flex items-center justify-between mx-5">
           <div>
-            <button className="">
+            <Link to={'/publish-video'}>
               <RiVideoAddLine size={30} />
-            </button>
+            </Link>
           </div>
           <div>
             {/* User avatar */}
@@ -40,6 +43,7 @@ function Navbar({ toggleSidebar }) {
         </div>
       </nav>
 
+      {/* for mobile devices */}
       <div className=" bg-slate-100 w-full block md:hidden mt-20 py-2 z-0">
         <SearchBar />
       </div>
