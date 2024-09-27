@@ -16,7 +16,7 @@ function Layout({ children }) {
       <Navbar toggleSidebar={toggleSidebar} />
       <div className={`flex transition-all duration-500`}>
         {isSidebarOpen && <Sidebar toggleSidebar={toggleSidebar} />}
-        <div className="w-full h-full bg-gray-200">
+        <div className="min-h-screen w-full h-full bg-gray-200">
         {children}
       </div>
       </div>

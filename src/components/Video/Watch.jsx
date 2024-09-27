@@ -46,7 +46,7 @@ function Watch() {
                 crossOrigin: "anonymous",
                 poster: video.thumbnail,
                 loop: false,
-                autoPlay: false,
+                autoPlay: true,
               },
             },
           }}
@@ -54,10 +54,10 @@ function Watch() {
       </div>
 
       {/* Video Title */}
-      <h2 className="text-2xl font-bold mt-2 mb-1 text-start">
+      <h2 className="text-2xl font-bold mt-2 mb-1 text-start text-gray-800">
         {video.title}
       </h2>
-      <h2 className="text-lg mt-2 mb-1 text-start">
+      <h2 className="text-lg mt-2 mb-1 text-start text-gray-700">
         {video.description}
       </h2>
 
