@@ -4,12 +4,12 @@ import Videos from "./Videos";
 function Tab() {
   return (
     <>
-      <div role="tablist" className="tabs tabs-lifted bg-white pt-5">
+      <div role="tablist" className="tabs tabs-lifted pt-5 z-0">
         <input
           type="radio"
           name="my_tabs_2"
           role="tab"
-          className="tab text-slate-500 mx-10 text-xl font-medium"
+          className="tab text-slate-500 lg:mx-10 lg:text-xl sm:text-lg mx-2 font-medium"
           aria-label="Videos"
           defaultChecked
         />
@@ -24,8 +24,8 @@ function Tab() {
           type="radio"
           name="my_tabs_2"
           role="tab"
-          className="tab text-slate-500 mx-10 text-xl font-medium"
-          aria-label="Tab 2 "
+          className="tab text-slate-500 lg:mx-10 lg:text-xl sm:text-lg mx-2 font-medium"
+          aria-label="Tab2 "
           
         />
         <div
@@ -39,8 +39,8 @@ function Tab() {
           type="radio"
           name="my_tabs_2"
           role="tab"
-          className="tab text-slate-500 mx-10 text-xl font-medium"
-          aria-label="Tab 3"
+          className="tab text-slate-500 lg:mx-10 lg:text-xl sm:text-lg mx-2 font-medium"
+          aria-label="Tab3"
         />
         <div
           role="tabpanel"

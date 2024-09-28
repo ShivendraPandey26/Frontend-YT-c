@@ -44,7 +44,7 @@ function Navbar({ toggleSidebar }) {
               <RiVideoAddLine size={30} />
             </Link>
           </div>
-          <Link to={"/profile"}>
+          <Link to={`/profile/${userInfo._id}`}>
             {/* User avatar */}
             <img
               src={

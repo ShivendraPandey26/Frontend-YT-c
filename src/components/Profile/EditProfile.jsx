@@ -24,6 +24,7 @@ function EditProfile({ user }) {
       console.error("Error updating user:", error);
     } finally {
       setIsLoading(false);
+      document.getElementById("my_modal_3").close();
     }
   };
   return (
@@ -52,7 +53,7 @@ function EditProfile({ user }) {
             {/* Full Name Field */}
             <div>
               <label
-                className="block text-gray-300 font-semibold mb-2"
+                className="block text-gray-700 font-semibold my-2"
                 htmlFor="fullName"
               >
                 Full Name
@@ -70,7 +71,7 @@ function EditProfile({ user }) {
             {/* Email Field */}
             <div>
               <label
-                className="block text-gray-300 font-semibold mb-2"
+                className="block text-gray-700 font-semibold mb-2"
                 htmlFor="email"
               >
                 Email

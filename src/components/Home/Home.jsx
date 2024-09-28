@@ -13,7 +13,6 @@ const Home = () => {
   }, []);
 
   // Fetch videos
-
   const fetchVideos = async () => {
     setIsLoading(true);
 
@@ -31,8 +30,6 @@ const Home = () => {
     }
   };
 
-  // console.log("Video API Response: ", videoData);
-
   return (
     <Layout>
       <div className="flex-grow p-4 md:p-6 lg:p-8 lg:mt-20 sm:mt-0 md:mt-20 mt-0">
@@ -43,9 +40,11 @@ const Home = () => {
         ) : (
           <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {videoData.data.length > 0 ? (
-              videoData.data.map((item) => (
-                <VideoCard key={item._id} video={item} />
-              ))
+              videoData.data
+                .filter((item) => item.isPublished)
+                .map((item) => (
+                  <VideoCard key={item._id} video={item} />
+                ))
             ) : (
               <div className="text-center text-gray-500">
                 No videos available
