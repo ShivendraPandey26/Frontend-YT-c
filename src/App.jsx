@@ -9,6 +9,8 @@ import Login from "./components/Auth/Login";
 import Watch from "./components/Video/Watch";
 import PublishVideo from "./components/Video/PublishVideo";
 import Profile from "./components/Profile/Profile";
+import Tweets from "./components/Tweets/Tweets";
+import ForgotPassword from "./components/Auth/ForgotPassword";
 
 function App() {
   return (
@@ -16,9 +18,11 @@ function App() {
       <Route exact path="/" element={<Home />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/watch/:videoId" element={<Watch />} />
       <Route path="/publishvideo" element={<PublishVideo />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profile/:userId" element={<Profile />} />
+      <Route path="/tweets" element={<Tweets />} />
     </Routes>
   );
 }
