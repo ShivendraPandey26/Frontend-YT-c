@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signUpCreating } from "../../Redux/Slices/AuthSlice";
 
 const Signup = () => {
@@ -31,7 +31,8 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { fullName, username, email, password, avatar, coverImage } = formData;
+    const { fullName, username, email, password, avatar, coverImage } =
+      formData;
 
     if (!fullName || !username || !email || !password || !avatar) {
       toast.error("Please fill all required fields");
@@ -58,7 +59,9 @@ const Signup = () => {
       setPreviewAvatar(objectUrl);
       return () => URL.revokeObjectURL(objectUrl); // Clean up
     } else {
-      setPreviewAvatar("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png");
+      setPreviewAvatar(
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+      );
     }
   }, [formData.avatar]);
 
@@ -68,7 +71,9 @@ const Signup = () => {
       setPreviewCoverImage(objectUrl);
       return () => URL.revokeObjectURL(objectUrl); // Clean up
     } else {
-      setPreviewCoverImage("https://via.placeholder.com/800x200.png?text=Cover+Image");
+      setPreviewCoverImage(
+        "https://via.placeholder.com/800x200.png?text=Cover+Image"
+      );
     }
   }, [formData.coverImage]);
 
@@ -132,12 +137,17 @@ const Signup = () => {
 
         {/* Profile Information Form */}
         <div className="mt-16 px-6">
-          <h2 className="text-2xl font-bold text-center mb-6">Create Profile</h2>
+          <h2 className="text-2xl font-bold text-center mb-6">
+            Create Profile
+          </h2>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Full Name */}
             <div>
-              <label className="block text-gray-700 font-semibold mb-2" htmlFor="fullName">
+              <label
+                className="block text-gray-700 font-semibold mb-2"
+                htmlFor="fullName"
+              >
                 Full Name
               </label>
               <input
@@ -154,7 +164,10 @@ const Signup = () => {
 
             {/* Username */}
             <div>
-              <label className="block text-gray-700 font-semibold mb-2" htmlFor="username">
+              <label
+                className="block text-gray-700 font-semibold mb-2"
+                htmlFor="username"
+              >
                 Username
               </label>
               <input
@@ -171,7 +184,10 @@ const Signup = () => {
 
             {/* Email */}
             <div>
-              <label className="block text-gray-700 font-semibold mb-2" htmlFor="email">
+              <label
+                className="block text-gray-700 font-semibold mb-2"
+                htmlFor="email"
+              >
                 Email
               </label>
               <input
@@ -188,7 +204,10 @@ const Signup = () => {
 
             {/* Password */}
             <div>
-              <label className="block text-gray-700 font-semibold mb-2" htmlFor="password">
+              <label
+                className="block text-gray-700 font-semibold mb-2"
+                htmlFor="password"
+              >
                 Password
               </label>
               <input
@@ -211,6 +230,14 @@ const Signup = () => {
               Sign Up
             </button>
           </form>
+        </div>
+        <div className="flex items-center justify-center mt-6">
+          <p className="text-sm text-gray-500">
+            Already have an account?{" "}
+            <Link to={"/login"} className="text-blue-500">
+              Log In
+            </Link>
+          </p>
         </div>
       </div>
     </div>

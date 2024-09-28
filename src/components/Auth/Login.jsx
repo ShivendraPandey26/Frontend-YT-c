@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../Redux/Slices/AuthSlice";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -67,6 +68,27 @@ const Login = () => {
             </button>
           </div>
         </form>
+
+        <div className="p-4 bg-gray-100 rounded-md">
+  <div className="mb-4">
+    <p className="font-semibold">Join Our Community</p>
+    <p>Sign up to explore amazing content!</p>
+    <Link to="/signup" className="text-blue-600 hover:underline">
+      Sign Up Now
+    </Link>
+  </div>
+  
+  <div>
+    <p className="mt-2 font-semibold">Forgot Your Password?</p>
+    <p>Reset it easily and get back to watching.</p>
+    <Link to="/forgot-password" className="text-blue-600 hover:underline">
+      Reset Password
+    </Link>
+  </div>
+</div>
+
+
+        
       </div>
     </div>
   );
