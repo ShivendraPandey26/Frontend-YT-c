@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
 import toast from "react-hot-toast";
 import axiosInstance from "../../Helper/axiosInstance";
+import { useParams } from "react-router-dom";
 
 const DummyVideoCard = () => {
   const [videoData, setVideoData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
 
-  useEffect(() => {
-    fetchVideos();
-  }, []);
+  const { userId } = useParams();
 
   // Fetch videos
 
@@ -18,7 +18,7 @@ const DummyVideoCard = () => {
 
     try {
       toast.loading("Loading videos...");
-      const response = await axiosInstance.get("/video");
+      const response = await axiosInstance.get("/video?userId="+`${userId}`);
 
       setVideoData(response.data);
       toast.success("Videos loaded!");
@@ -30,25 +30,43 @@ const DummyVideoCard = () => {
     }
   };
 
-  const onEdit = () => {};
+  const onEdit = async (videoDetails) => {
+    // console.log("Video details:", videoDetails);
+    try {
+      const response = await axiosInstance.patch(`/video/${videoDetails?._id}`, {
+        title: videoDetails.title,
+        description: videoDetails.description,
+        // thumbnail: videoDetails.thumbnail,
+      });
+      
+      toast.promise(response, {
+        loading: "Updating video...",
+        success: "Video updated successfully!",
+        error: "Failed to update video.",
+      });
+    } catch (error) {
+      console.error("Error updating video:", error);
+      toast.error("Failed to update video.");
+    }
+    setIsEditing(!isEditing);
+  };
   const onDelete = async (videoId) => {
     try {
-      const response = await toast.promise(
-        axiosInstance.delete(`/video/${videoId}`), 
-        {
-          loading: "Deleting video...",
-          success: "Video deleted successfully!",
-          error: "Failed to delete video.",
-        }
-      );
-      return response; // Return the response if needed
+      const response = await axiosInstance.delete(`/video/${videoId}`);
+      toast.success("Video deleted successfully!");
+      return response;
     } catch (error) {
-      console.error("Error deleting video:", error); 
+      console.error("Error deleting video:", error);
       toast.error("Failed to delete video.");
     }
+    setIsEditing(!isEditing);
   };
 
-  console.log(videoData.data);
+  useEffect(() => {
+    fetchVideos();
+  }, [isEditing]);
+
+  // console.log(videoData.data);
 
   return (
     <>
@@ -59,6 +77,8 @@ const DummyVideoCard = () => {
           videos={videoData?.data}
           onEdit={onEdit}
           onDelete={onDelete}
+          setIsEditing={setIsEditing}
+          isEditing={isEditing}
         />
       )}
     </>
