@@ -54,6 +54,19 @@ export const login = createAsyncThunk(
   }
 );
 
+export const logOut = createAsyncThunk("/", async () => {
+  try {
+    await axiosInstance.post("/users/logout");
+    toast.success("Logged out successfully");
+    return true;
+  } catch (error) {
+    const message = error?.response?.data?.message || "Failed to log out";
+    console.log(message);
+    toast.error(message);
+    toast.dismiss();
+  }
+});
+
 // Toast management function
 const handleToast = (state, action, isLoadingMessage, successMessage) => {
   state.loading = isLoadingMessage ? true : false;
