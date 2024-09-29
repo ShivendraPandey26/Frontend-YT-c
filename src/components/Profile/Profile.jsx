@@ -6,18 +6,20 @@ import EditProfile from "./EditProfile";
 import Tab from "./Tab";
 import axiosInstance from "../../Helper/axiosInstance";
 import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
 
 function Profile() {
   const [isEdit, setIsEdit] = useState(false);
-  const dispatch = useDispatch();
   const { userInfo, isLoading, error } = useSelector((state) => state.profile);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const dispatch = useDispatch();
+  const { userId } = useParams();
 
   useEffect(() => {
     dispatch(fetchUserInfo());
-  }, [dispatch , isEdit]);
+  }, [dispatch, isEdit]);
 
   // console.log(userInfo);
-  
 
   // Handle avatar change
   const handleAvatarChange = async (e) => {
@@ -40,7 +42,7 @@ function Profile() {
         }
       );
 
-      toast.success("Updated avatar image file successfully")
+      toast.success("Updated avatar image file successfully");
     } catch (error) {
       console.error("Error updating avatar:", error);
       toast.error("Failed to update avatar.");
@@ -59,24 +61,29 @@ function Profile() {
     formData.append("coverImage", coverImageFile);
 
     try {
-      await axiosInstance.patch(
-        "users/update-coverimage",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axiosInstance.patch("users/update-coverimage", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-      toast.success("Updated cover image file successfully")
-
+      toast.success("Updated cover image file successfully");
     } catch (error) {
       console.error("Error updating cover image:", error);
       toast.error("Failed to update cover image.");
     }
     setIsEdit(!isEdit);
   };
+
+  const checkAdmin = () => {
+    if (userId === userInfo._id) {
+      setIsAdmin(true);
+    }
+  };
+
+  useEffect(() => {
+    checkAdmin();
+  }, []);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -144,7 +151,7 @@ function Profile() {
             <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
               Subscribe
             </button>
-            <EditProfile user={userInfo} />
+            {isAdmin && <EditProfile user={userInfo} />}
           </div>
         </div>
       </div>
