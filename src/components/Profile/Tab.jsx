@@ -1,5 +1,6 @@
 import React from "react";
 import Videos from "./Videos";
+import Tweets from "./Tweets";
 
 function Tab() {
   return (
@@ -25,14 +26,13 @@ function Tab() {
           name="my_tabs_2"
           role="tab"
           className="tab text-slate-500 lg:mx-10 lg:text-xl sm:text-lg mx-2 font-medium"
-          aria-label="Tab2 "
-          
+          aria-label="Tweets"
         />
         <div
           role="tabpanel"
           className="tab-content bg-base-100 border-base-300 rounded-box p-6"
         >
-          Tab content 2
+          <Tweets />
         </div>
 
         <input
