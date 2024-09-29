@@ -1,24 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CgPlayList } from "react-icons/cg";
 import { FaHistory, FaHome, FaThumbsUp, FaUsers } from "react-icons/fa";
 import { FaUserGear } from "react-icons/fa6";
 import { FiMenu } from "react-icons/fi";
 import { MdSubscriptions } from "react-icons/md";
 import { TbTrendingUp } from "react-icons/tb";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logOut } from "../../Redux/Slices/AuthSlice";
 import { useNavigate } from "react-router-dom";
+import { fetchUserInfo } from "../../Redux/Slices/ProfileSlice";
 
 function Sidebar({ toggleSidebar }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const { userInfo } = useSelector((state) => state.profile);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   const handleLogout = async () => {
-    await dispatch(logOut())
-    navigate("/login")
-  }
+    await dispatch(logOut());
+    navigate("/login");
+  };
+
+  useEffect(() => {
+    dispatch(fetchUserInfo());
+  }, []);
 
   return (
     <div className="bg-white min-h-screen top-0 w-60 fixed md:relative transition-transform duration-500 z-50">
@@ -44,28 +51,40 @@ function Sidebar({ toggleSidebar }) {
             </Link>
           </li>
           <li className="w-[90%] mb-2 hover:bg-gray-200 rounded-xl">
-            <Link className="text-gray-700 hover:text-red-600 px-4 py-2 font-medium flex items-center gap-3">
+            <Link
+              to={"/trending"}
+              className="text-gray-700 hover:text-red-600 px-4 py-2 font-medium flex items-center gap-3"
+            >
               <TbTrendingUp size={25} /> Trending
             </Link>
           </li>
 
           <li className="border-b-2 mb-5"></li>
 
-          <li className="w-[90%] mb-2 hover:bg-gray-200 rounded-xl">
-            <a
-              href="#"
+          {isAuthenticated ? (
+            <li className="w-[90%] mb-2 hover:bg-gray-200 rounded-xl">
+              <Link
+                to={`/profile/${userInfo._id}`}
+                className="text-gray-700 hover:text-red-600 px-4 py-2 font-medium flex items-center gap-3"
+              >
+                <FaUserGear size={25} /> Your Channel
+              </Link>
+            </li>
+          ) : (
+            <Link
+              to={"/login"}
               className="text-gray-700 hover:text-red-600 px-4 py-2 font-medium flex items-center gap-3"
             >
               <FaUserGear size={25} /> Your Channel
-            </a>
-          </li>
+            </Link>
+          )}
           <li className="w-[90%] mb-2 hover:bg-gray-200 rounded-xl">
-            <a
-              href="#"
+            <Link
+              to={"/subscribe"}
               className="text-gray-700 hover:text-red-600 px-4 py-2 font-medium flex items-center gap-3"
             >
               <MdSubscriptions size={25} /> Subscriptions
-            </a>
+            </Link>
           </li>
           <li className="w-[90%] mb-2 hover:bg-gray-200 rounded-xl">
             <Link
@@ -102,7 +121,10 @@ function Sidebar({ toggleSidebar }) {
         </ul>
 
         <div className="mt-56 mx-5">
-          <button onClick={handleLogout} className="text-white hover:bg-slate-500 px-8 py-2 rounded-lg bg-slate-600 font-medium">
+          <button
+            onClick={handleLogout}
+            className="text-white hover:bg-slate-500 px-8 py-2 rounded-lg bg-slate-600 font-medium"
+          >
             Log Out
           </button>
         </div>
