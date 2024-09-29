@@ -10,6 +10,9 @@ function Navbar({ toggleSidebar }) {
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.profile);
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
+  // console.log({ userInfo, isAuthenticated });
 
   useEffect(() => {
     dispatch(fetchUserInfo());
@@ -39,22 +42,41 @@ function Navbar({ toggleSidebar }) {
         </div>
 
         <div className="w-32 flex items-center justify-between mx-5">
-          <div className="text-red-600">
-            <Link to={"/publishvideo"}>
+          {isAuthenticated ? (
+            <div className="text-red-600">
+              <Link to={"/publishvideo"}>
+                <RiVideoAddLine size={30} />
+              </Link>
+            </div>
+          ) : (
+            <Link to={"/login"}>
               <RiVideoAddLine size={30} />
             </Link>
-          </div>
-          <Link to={`/profile/${userInfo._id}`}>
-            {/* User avatar */}
-            <img
-              src={
-                userInfo.avatar ||
-                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-              }
-              alt="User avatar"
-              className="rounded-full h-12 w-12 object-cover border"
-            />
-          </Link>
+          )}
+          {isAuthenticated ? (
+            <Link to={`/profile/${userInfo._id}`}>
+              {/* User avatar */}
+              <img
+                src={
+                  userInfo.avatar ||
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                }
+                alt="User avatar"
+                className="rounded-full h-12 w-12 object-cover border"
+              />
+            </Link>
+          ) : (
+            <Link to={`/login`}>
+              {/* User avatar */}
+              <img
+                src={
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                }
+                alt="User avatar"
+                className="rounded-full h-12 w-12 object-cover border"
+              />
+            </Link>
+          )}
         </div>
       </nav>
 
