@@ -11,6 +11,8 @@ import PublishVideo from "./components/Video/PublishVideo";
 import Profile from "./components/Profile/Profile";
 import Tweets from "./components/Tweets/Tweets";
 import ForgotPassword from "./components/Auth/ForgotPassword";
+import Subscribe from "./components/Subscribe/Subscribe";
+import Trending from "./components/Trending/Trending";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
       <Route path="/publishvideo" element={<PublishVideo />} />
       <Route path="/profile/:userId" element={<Profile />} />
       <Route path="/tweets" element={<Tweets />} />
+      <Route path="/subscribe" element={<Subscribe />} />
+      <Route path="/trending" element={<Trending />} />
     </Routes>
   );
 }
