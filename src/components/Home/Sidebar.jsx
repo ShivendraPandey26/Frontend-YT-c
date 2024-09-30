@@ -95,28 +95,28 @@ function Sidebar({ toggleSidebar }) {
             </Link>
           </li>
           <li className="w-[90%] mb-2 hover:bg-gray-200 rounded-xl">
-            <a
-              href="#"
+            <Link
+              to={"/playlists"}
               className="text-gray-700 hover:text-red-600 px-4 py-2 font-medium flex items-center gap-3"
             >
               <CgPlayList size={30} /> Playlists
-            </a>
+            </Link>
           </li>
           <li className="w-[90%] mb-2 hover:bg-gray-200 rounded-xl">
-            <a
-              href="#"
+            <Link
+              to={"/liked"}
               className="text-gray-700 hover:text-red-600 px-4 py-2 font-medium flex items-center gap-3"
             >
               <FaThumbsUp size={25} /> Liked Videos
-            </a>
+            </Link>
           </li>
           <li className="w-[90%] mb-2 hover:bg-gray-200 rounded-xl">
-            <a
-              href="#"
+            <Link
+              to={"/history"}
               className="text-gray-700 hover:text-red-600 px-4 py-2 font-medium flex items-center gap-3"
             >
-              <FaHistory size={25} /> History
-            </a>
+              <FaHistory size={25} /> Historys
+            </Link>
           </li>
         </ul>
 
