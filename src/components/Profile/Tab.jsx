@@ -40,13 +40,13 @@ function Tab() {
           name="my_tabs_2"
           role="tab"
           className="tab text-slate-500 lg:mx-10 lg:text-xl sm:text-lg mx-2 font-medium"
-          aria-label="Tab3"
+          aria-label="Playlists"
         />
         <div
           role="tabpanel"
           className="tab-content bg-base-100 border-base-300 rounded-box p-6"
         >
-          Tab content 3
+          This page will add soon...
         </div>
       </div>
     </>
