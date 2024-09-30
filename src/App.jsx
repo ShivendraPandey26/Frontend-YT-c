@@ -13,6 +13,8 @@ import Tweets from "./components/Tweets/Tweets";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import Subscribe from "./components/Subscribe/Subscribe";
 import Trending from "./components/Trending/Trending";
+import Soon from "./NotFound/Soon";
+import NotFound from "./NotFound/NotFound";
 
 function App() {
   return (
@@ -27,6 +29,10 @@ function App() {
       <Route path="/tweets" element={<Tweets />} />
       <Route path="/subscribe" element={<Subscribe />} />
       <Route path="/trending" element={<Trending />} />
+      <Route path="/playlists" element={<Soon />} />
+      <Route path="/liked" element={<Soon />} />
+      <Route path="/history" element={<Soon />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
